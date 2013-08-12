@@ -32,3 +32,6 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/utlist.h"
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/libuvc/libuvc.h"
   DESTINATION include/libuvc)
 
+# Install catkin package.xml
+install(FILES package.xml DESTINATION share/libuvc)
+
