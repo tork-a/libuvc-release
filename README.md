@@ -1,3 +1,22 @@
+## libuvc - 0.0.1-6
+
+User `ken@kcore.int80k.com` released the packages in the `libuvc` repository by running `/usr/bin/bloom-release libuvc --track hydro --rosdistro hydro` on `Mon, 12 Aug 2013 05:53:36 -0000`
+
+The `libuvc` package was released.
+
+Version of package(s) in repository `libuvc`:
+- rosdistro version: `0.0.1-4`
+- old version: `0.0.1-5`
+- new version: `0.0.1-6`
+
+Versions of tools used:
+- bloom version: `0.4.4`
+- catkin_pkg version: `0.1.19`
+- rosdep version: `0.10.21`
+- rosdistro version: `0.2.13`
+- vcstools version: `0.1.31`
+
+
 ## libuvc - 0.0.1-4
 
 User `ken@kcore.int80k.com` released the packages in the `libuvc` repository by running `/usr/bin/bloom-release libuvc --track hydro --rosdistro hydro` on `Wed, 10 Jul 2013 04:47:40 -0000`
