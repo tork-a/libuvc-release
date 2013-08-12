@@ -35,3 +35,8 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/libuvc/libuvc.h"
 # Install catkin package.xml
 install(FILES package.xml DESTINATION share/libuvc)
 
+configure_file("${CMAKE_CURRENT_SOURCE_DIR}/libuvcConfig.cmake.in" "${CMAKE_BINARY_DIR}/libuvcConfig.cmake" @ONLY IMMEDIATE)
+
+if (UNIX)
+  install(FILES "${CMAKE_BINARY_DIR}/libuvcConfig.cmake" DESTINATION lib/libuvc)
+endif()
