@@ -1,0 +1,44 @@
+From c0e6855d73ae85b33dc947bf189cc61847126c1c Mon Sep 17 00:00:00 2001
+From: Ken Tossell <ken@tossell.net>
+Date: Sun, 11 Aug 2013 22:07:30 -0700
+Subject: [PATCH 2/2] Added libuvc.pc.in.
+
+---
+ CMakeLists.txt |  5 +++++
+ libuvc.pc.in   | 11 +++++++++++
+ 2 files changed, 16 insertions(+)
+ create mode 100644 libuvc.pc.in
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index bfdaedf..9f06c89 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -35,3 +35,8 @@ install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/libuvc/libuvc.h"
+ # Install catkin package.xml
+ install(FILES package.xml DESTINATION share/libuvc)
+ 
++configure_file("${CMAKE_CURRENT_SOURCE_DIR}/libuvc.pc.in" "${CMAKE_BINARY_DIR}/libuvc.pc" @ONLY IMMEDIATE)
++
++if (UNIX)
++  install(FILES "${CMAKE_BINARY_DIR}/libuvc.pc" DESTINATION lib/pkgconfig)
++endif()
+diff --git a/libuvc.pc.in b/libuvc.pc.in
+new file mode 100644
+index 0000000..2317274
+--- /dev/null
++++ b/libuvc.pc.in
+@@ -0,0 +1,11 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: LibUVC
++Description: USB Video Class device access library
++Version: @VERSION@
++Requires: libusb-1.0
++Libs: -L${libdir} -luvc
++CFlags: -I${includedir}
+-- 
+1.8.3.4
+
