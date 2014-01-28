@@ -32,11 +32,42 @@
 *  POSSIBILITY OF SUCH DAMAGE.
 *********************************************************************/
 /**
-\mainpage
-\htmlinclude manifest.html
+\mainpage libuvc: a cross-platform library for USB video devices
 
 \b libuvc is a library that supports enumeration, control and streaming
 for USB Video Class (UVC) devices, such as consumer webcams.
+
+\section features Features
+\li Asynchronous video streaming (device to host) in isochronous mode
+\li Synchronous streaming API (but only isochronous streaming is available)
+\li Read/write access to standard device settings
+\li Conversion between various RGB and YUV formats
+\li Tested on Mac and Linux, portable to Windows and some BSDs
+
+\section roadmap Roadmap
+\li Bulk-mode image capture
+\li One-shot image capture
+\li Improved support for standard settings
+\li Support for "extended" (vendor-defined) settings
+
+\section misc Misc.
+\p The source code can be found at https://github.com/ktossell/libuvc. To build
+the library, install <a href="http://libusb.org/">libusb</a> 1.0+ and run:
+
+\code
+$ git clone https://github.com/ktossell/libuvc.git
+$ cd libuvc
+$ mkdir build
+$ cd build
+$ cmake -DCMAKE_BUILD_TYPE=Release ..
+$ make && make install
+\endcode
+
+\section Example
+In this example, libuvc is used to acquire images in a 30 fps, 640x480
+YUV stream from a UVC device such as a standard webcam.
+
+\include example.c
 
 */
 
@@ -84,12 +115,8 @@ uvc_error_t uvc_init(uvc_context_t **pctx, struct libusb_context *usb_ctx) {
     ctx->usb_ctx = usb_ctx;
   }
 
-  if (ctx != NULL) {
-    ctx->kill_handler_thread = 0;
-    if (ctx->own_usb_ctx)
-      pthread_create(&ctx->handler_thread, NULL, _uvc_handle_events, (void*) ctx);
+  if (ctx != NULL)
     *pctx = ctx;
-  }
 
   return ret;
 }
@@ -113,14 +140,22 @@ void uvc_exit(uvc_context_t *ctx) {
     uvc_close(devh);
   }
 
-  ctx->kill_handler_thread = 1;
-
-  if (ctx->own_usb_ctx) {
-    pthread_kill(ctx->handler_thread, SIGINT);
-    pthread_join(ctx->handler_thread, NULL);
+  if (ctx->own_usb_ctx)
     libusb_exit(ctx->usb_ctx);
-  }
 
   free(ctx);
+}
+
+/**
+ * @internal
+ * @brief Spawns a handler thread for the context
+ * @ingroup init
+ *
+ * This should be called at the end of a successful uvc_open if no devices
+ * are already open (and being handled).
+ */
+void uvc_start_handler_thread(uvc_context_t *ctx) {
+  if (ctx->own_usb_ctx)
+    pthread_create(&ctx->handler_thread, NULL, _uvc_handle_events, (void*) ctx);
 }
 
