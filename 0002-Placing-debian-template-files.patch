@@ -1,4 +1,4 @@
-From 0cef42031c67c9de92e4b3a602d2a0e9bdce0317 Mon Sep 17 00:00:00 2001
+From 634b9bc76556f4741c6a64abb6a74154e756a5c1 Mon Sep 17 00:00:00 2001
 From: Ken Tossell <ken@tossell.net>
 Date: Sun, 11 Aug 2013 22:53:22 -0700
 Subject: [PATCH 2/2] Placing debian template files
@@ -133,5 +133,5 @@ index 0000000..46ebe02
 +3.0 (quilt)
 \ No newline at end of file
 -- 
-1.8.4
+1.8.5.2
 
