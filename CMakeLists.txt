@@ -105,3 +105,6 @@ install(FILES
 
 install(EXPORT libuvcTargets
   DESTINATION "${INSTALL_CMAKE_DIR}")
+
+# Install catkin package.xml
+install(FILES package.xml DESTINATION share/libuvc)
