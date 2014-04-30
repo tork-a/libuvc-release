@@ -1,0 +1,23 @@
+From 438f6a3c433feba9e14e3537c7479e8eb8581fe3 Mon Sep 17 00:00:00 2001
+From: Ken Tossell <ken@tossell.net>
+Date: Wed, 30 Apr 2014 19:30:18 -0400
+Subject: [PATCH] Added install rule for package.xml
+
+---
+ CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index a8c0a50..34f6fd6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -70,3 +70,6 @@ install(FILES
+ 
+ install(EXPORT libuvcTargets
+   DESTINATION "${INSTALL_CMAKE_DIR}")
++
++# Install catkin package.xml
++install(FILES package.xml DESTINATION share/libuvc)
+-- 
+1.9.2
+
