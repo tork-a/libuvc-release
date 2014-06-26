@@ -1,3 +1,24 @@
+## libuvc (hydro) - 0.0.4-1
+
+The packages in the `libuvc` repository were released into the `hydro` distro by running `/usr/bin/bloom-release -t hydro -r hydro libuvc` on `Thu, 26 Jun 2014 17:03:32 -0000`
+
+The `libuvc` package was released.
+
+Version of package(s) in repository `libuvc`:
+- upstream repository: https://github.com/ktossell/libuvc.git
+- release repository: https://github.com/ktossell/libuvc-release.git
+- rosdistro version: `0.0.3-0`
+- old version: `0.0.4-0`
+- new version: `0.0.4-1`
+
+Versions of tools used:
+- bloom version: `0.5.10`
+- catkin_pkg version: `0.2.2`
+- rosdep version: `0.10.27`
+- rosdistro version: `0.3.5`
+- vcstools version: `0.1.31`
+
+
 ## libuvc (indigo) - 0.0.3-3
 
 User `ken@kcore.int80k.com` released the packages in the `libuvc` repository into the `indigo` distro by running `/usr/bin/bloom-release libuvc --track indigo --rosdistro indigo` on `Wed, 30 Apr 2014 23:34:57 -0000`
