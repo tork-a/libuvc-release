@@ -6,9 +6,14 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
 endif ()
 
+if (NOT CMAKE_BUILD_TARGET)
+  message(STATUS "No target type selected, default to shared library")
+  set(CMAKE_BUILD_TARGET "Shared" CACHE STRING "" FORCE)
+endif()
+
 set(libuvc_VERSION_MAJOR 0)
 set(libuvc_VERSION_MINOR 0)
-set(libuvc_VERSION_PATCH 3)
+set(libuvc_VERSION_PATCH 4)
 set(libuvc_VERSION ${libuvc_VERSION_MAJOR}.${libuvc_VERSION_MINOR}.${libuvc_VERSION_PATCH})
 
 find_library(LIBUSB_LIBRARY_NAMES usb-1.0
@@ -17,10 +22,24 @@ find_library(LIBUSB_LIBRARY_NAMES usb-1.0
 find_path(LIBUSB_INCLUDE_DIR libusb-1.0/libusb.h
 	PATHS /opt/local/include)
 
+# Try to find JPEG using a module or pkg-config. If that doesn't work, search for the header.
+find_package(jpeg QUIET)
+if(NOT JPEG_FOUND)
+  find_path(JPEG_INCLUDE_DIR jpeglib.h)
+  if(JPEG_INCLUDE_DIR)
+    set(JPEG_FOUND ON)
+    set(JPEG_LIBRARIES -ljpeg)
+  endif()
+endif()
+
 SET(CMAKE_C_FLAGS_DEBUG "-g -DUVC_DEBUGGING")
 
 SET(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/lib/cmake/libuvc" CACHE PATH
 	"Installation directory for CMake files")
+
+SET(SOURCES src/ctrl.c src/device.c src/diag.c
+           src/frame.c src/init.c src/stream.c
+           src/misc.c)
 
 include_directories(
   ${libuvc_SOURCE_DIR}/include
@@ -28,17 +47,32 @@ include_directories(
   ${LIBUSB_INCLUDE_DIR}
 )
 
-link_directories(${LIBUSB_LIBRARY_NAMES})
+if(JPEG_FOUND)
+  message(STATUS "Building libuvc with JPEG support.")
+  include_directories(${JPEG_INCLUDE_DIR})
+  SET(HAVE_JPEG TRUE)
+  SET(SOURCES ${SOURCES} src/frame-mjpeg.c)
+else()
+  message(WARNING "JPEG not found. libuvc will not support JPEG decoding.")
+endif()
 
-add_library(uvc SHARED src/ctrl.c src/device.c src/diag.c
-                       src/frame.c src/init.c src/stream.c
-                       src/misc.c)
+if(${CMAKE_BUILD_TARGET} MATCHES "Shared")
+  add_library(uvc SHARED ${SOURCES})
+elseif(${CMAKE_BUILD_TARGET} MATCHES "Static")
+  add_library(uvc STATIC ${SOURCES})
+else()
+  message( FATAL_ERROR "Invalid build type ${CMAKE_BUILD_TARGET}" )
+endif()
 
 configure_file(include/libuvc/libuvc_config.h.in
   ${PROJECT_BINARY_DIR}/include/libuvc/libuvc_config.h @ONLY)
 
 set_target_properties(uvc PROPERTIES
   PUBLIC_HEADER "include/libuvc/libuvc.h;${libuvc_BINARY_DIR}/include/libuvc/libuvc_config.h" )
+
+if(JPEG_FOUND)
+  target_link_libraries (uvc ${JPEG_LIBRARIES})
+endif(JPEG_FOUND)
 
 target_link_libraries(uvc ${LIBUSB_LIBRARY_NAMES})
 
@@ -49,6 +83,7 @@ target_link_libraries(uvc ${LIBUSB_LIBRARY_NAMES})
 install(TARGETS uvc
   EXPORT libuvcTargets
   LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
+  ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/lib"
   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_PREFIX}/include/libuvc"
 )
 
@@ -70,6 +105,3 @@ install(FILES
 
 install(EXPORT libuvcTargets
   DESTINATION "${INSTALL_CMAKE_DIR}")
-
-# Install catkin package.xml
-install(FILES package.xml DESTINATION share/libuvc)
