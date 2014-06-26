@@ -1,4 +1,4 @@
-From 019fc3de6b4bcf1703a0e30cb18d99fd5eb89701 Mon Sep 17 00:00:00 2001
+From 9e7844adc6a6c177d1cc529f7784a6aed9efdd83 Mon Sep 17 00:00:00 2001
 From: Ken Tossell <ken@tossell.net>
 Date: Sun, 11 Aug 2013 21:33:03 -0700
 Subject: [PATCH] Added install rule for package.xml
@@ -8,10 +8,10 @@ Subject: [PATCH] Added install rule for package.xml
  1 file changed, 4 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index dc3d1be..6c6a4a0 100644
+index a8c0a50..abdf9d0 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -57,3 +57,7 @@ install(FILES
+@@ -70,3 +70,7 @@ install(FILES
  
  install(EXPORT libuvcTargets
    DESTINATION "${INSTALL_CMAKE_DIR}")
@@ -20,5 +20,5 @@ index dc3d1be..6c6a4a0 100644
 +install(FILES package.xml DESTINATION share/libuvc)
 +
 -- 
-1.8.5.2
+1.9.2
 
