@@ -99,7 +99,7 @@ int main(int argc, char **argv) {
       /* Try to negotiate a 640x480 30 fps YUYV stream profile */
       res = uvc_get_stream_ctrl_format_size(
           devh, &ctrl, /* result stored in ctrl */
-          UVC_COLOR_FORMAT_YUYV, /* YUV 422, aka YUV 4:2:2. try _COMPRESSED */
+          UVC_FRAME_FORMAT_YUYV, /* YUV 422, aka YUV 4:2:2. try _COMPRESSED */
           640, 480, 30 /* width, height, fps */
       );
 
@@ -109,10 +109,10 @@ int main(int argc, char **argv) {
       if (res < 0) {
         uvc_perror(res, "get_mode"); /* device doesn't provide a matching stream */
       } else {
-        /* Start the video stream in isochronous mode. The library will
-         * call user function cb: cb(frame, (void*) 12345)
+        /* Start the video stream. The library will call user function cb:
+         *   cb(frame, (void*) 12345)
          */
-        res = uvc_start_iso_streaming(devh, &ctrl, cb, 12345);
+        res = uvc_start_streaming(devh, &ctrl, cb, 12345, 0);
 
         if (res < 0) {
           uvc_perror(res, "start_streaming"); /* unable to start stream */
