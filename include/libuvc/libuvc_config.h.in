@@ -10,4 +10,6 @@
   (@libuvc_VERSION_MINOR@ << 8) |               \
   (@libuvc_VERSION_PATCH@)
 
+#cmakedefine LIBUVC_HAS_JPEG 1
+
 #endif // !def(LIBUVC_CONFIG_H)
