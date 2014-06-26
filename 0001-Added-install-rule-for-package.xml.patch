@@ -1,4 +1,4 @@
-From 3c478ba072a760157319346fadc89d38849632bd Mon Sep 17 00:00:00 2001
+From 5b5163d937301f867fc38844d0ba75254f37a912 Mon Sep 17 00:00:00 2001
 From: Ken Tossell <ken@tossell.net>
 Date: Wed, 30 Apr 2014 19:30:18 -0400
 Subject: [PATCH] Added install rule for package.xml
