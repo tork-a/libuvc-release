@@ -13,7 +13,7 @@ endif()
 
 set(libuvc_VERSION_MAJOR 0)
 set(libuvc_VERSION_MINOR 0)
-set(libuvc_VERSION_PATCH 4)
+set(libuvc_VERSION_PATCH 5)
 set(libuvc_VERSION ${libuvc_VERSION_MAJOR}.${libuvc_VERSION_MINOR}.${libuvc_VERSION_PATCH})
 
 find_library(LIBUSB_LIBRARY_NAMES usb-1.0
@@ -37,7 +37,7 @@ SET(CMAKE_C_FLAGS_DEBUG "-g -DUVC_DEBUGGING")
 SET(INSTALL_CMAKE_DIR "${CMAKE_INSTALL_PREFIX}/lib/cmake/libuvc" CACHE PATH
 	"Installation directory for CMake files")
 
-SET(SOURCES src/ctrl.c src/device.c src/diag.c
+SET(SOURCES src/ctrl.c src/ctrl-gen.c src/device.c src/diag.c
            src/frame.c src/init.c src/stream.c
            src/misc.c)
 
@@ -92,7 +92,7 @@ export(TARGETS uvc
 export(PACKAGE libuvc)
 
 set(CONF_INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/include")
-set(CONF_LIBRARY "${CMAKE_INSTALL_PREFIX}/lib/libuvc.so")
+set(CONF_LIBRARY "${CMAKE_INSTALL_PREFIX}/lib/${CMAKE_SHARED_LIBRARY_PREFIX}uvc${CMAKE_SHARED_LIBRARY_SUFFIX}")
 
 configure_file(libuvcConfig.cmake.in ${PROJECT_BINARY_DIR}${CMAKE_FILES_DIRECTORY}/libuvcConfig.cmake)
 
