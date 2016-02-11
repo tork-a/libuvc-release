@@ -1,4 +1,4 @@
-From 5b5163d937301f867fc38844d0ba75254f37a912 Mon Sep 17 00:00:00 2001
+From 6999353b052276b46f231978ab5dcf01ba8bd2dc Mon Sep 17 00:00:00 2001
 From: Ken Tossell <ken@tossell.net>
 Date: Wed, 30 Apr 2014 19:30:18 -0400
 Subject: [PATCH] Added install rule for package.xml
@@ -19,5 +19,5 @@ index 6942369..14028d4 100644
 +# Install catkin package.xml
 +install(FILES package.xml DESTINATION share/libuvc)
 -- 
-1.9.2
+1.9.1
 
