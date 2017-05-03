@@ -1,3 +1,26 @@
+## libuvc (jade) - 0.0.5-0
+
+The packages in the `libuvc` repository were released into the `jade` distro by running `/usr/bin/bloom-release libuvc --track jade --ros-distro jade` on `Wed, 03 May 2017 01:08:48 -0000`
+
+The `libuvc` package was released.
+
+Version of package(s) in repository `libuvc`:
+
+- upstream repository: https://github.com/ktossell/libuvc.git
+- release repository: unknown
+- rosdistro version: `null`
+- old version: `null`
+- new version: `0.0.5-0`
+
+Versions of tools used:
+
+- bloom version: `0.5.26`
+- catkin_pkg version: `0.3.1`
+- rosdep version: `0.11.5`
+- rosdistro version: `0.6.2`
+- vcstools version: `0.1.39`
+
+
 ## libuvc (kinetic) - 0.0.5-0
 
 The packages in the `libuvc` repository were released into the `kinetic` distro by running `/usr/bin/bloom-release libuvc --track kinetic --ros-distro kinetic` on `Wed, 03 May 2017 01:03:02 -0000`
